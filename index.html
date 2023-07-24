@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Queue Simulation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Queue Simulation</h2>
+        <form id="queueForm" class="mt-4">
+            <div class="form-group">
+                <label for="num_servers">Number of Servers (C):</label>
+                <input type="number" class="form-control" id="num_servers" name="num_servers" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="arrival_rate">Arrival Rate (λ):</label>
+                <input type="number" step="0.01" class="form-control" id="arrival_rate" name="arrival_rate" required>
+            </div>
+            <div class="form-group">
+                <label for="service_rate">Service Rate (μ):</label>
+                <input type="number" step="0.01" class="form-control" id="service_rate" name="service_rate" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Simulate</button>
+        </form>
+        <div id="result" class="mt-4"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#queueForm").submit(function (event) {
+                event.preventDefault();
+                const formData = $(this).serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/",
+                    data: formData,
+                    success: function (response) {
+                        $("#result").html(response);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
